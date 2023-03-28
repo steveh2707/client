@@ -13,6 +13,34 @@ body {
   height: 100%;
 }
 
+.login-background {
+  background-image: url("https://blog.spoongraphics.co.uk/wp-content/uploads/2015/10/Blurred-Background-02.jpg");
+  /* background-image: url("https://images.hdqwalls.com/download/minimal-music-shapes-8k-0w-7680x4320.jpg"); */
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  margin: auto;
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.login-card {
+  max-width: 500px;
+  margin: auto;
+}
+
 .fullpage {
   margin: auto;
   max-width: 1200px;
@@ -29,6 +57,14 @@ body {
   border-radius: 10px;
   text-align: center;
   margin-bottom: 15px;
+}
+
+.myheadings h3 {
+  padding: 10px;
+}
+
+.myheadings h2 {
+  padding: 10px;
 }
 
 .link-none {
@@ -99,6 +135,22 @@ body {
   flex-direction: column;
   background-color: inherit;
 }
+
+.addcollection {
+  max-width: 600px;
+  margin: auto;
+  padding-bottom: 10px;
+}
+
+/* .addcollection label {
+  width: 30%;
+  margin: auto;
+  font-size: large;
+}
+
+.addcollection input {
+  width: 40%;
+} */
 
 .footer {
   width: 100%;

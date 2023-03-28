@@ -1,3 +1,59 @@
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<!-- <div class="modal fade" id="loginModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Show a second modal and hide this one with the button below.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#registerModal" data-bs-toggle="modal">Switch to
+          Register</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="registerModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Hide this modal and show the first with the button below.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#loginModal" data-bs-toggle="modal">Switch to Login</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
 <nav class="navbar navbar-expand-md mynavbar" data-bs-theme="light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Stacks Of Wax</a>
@@ -10,20 +66,58 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Collections</a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="/albums">Albums</a>
+          <a class="nav-link" href="/addcollection">Add Collection</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/artists">Artists</a>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            All Media
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/albums">Albums</a></li>
+            <li><a class="dropdown-item" href="/artists">Artists</a></li>
+            <li><a class="dropdown-item" href="#">Tracks</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Tracks</a>
-        </li>
+
       </ul>
-      <form class="d-flex" role="search">
+      <!-- <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </form> -->
+
+      <nav class="navbar bg-body-tertiary">
+        <form class="container-fluid justify-content-start">
+
+          <% if (typeof user !== 'undefined') { %>
+
+
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-person-fill" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+              </svg>
+              <%= user.user_name %>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="/addcollection" type="Add Collection">Add New Collection</a></li>
+              <li><a class="dropdown-item" href="#" type="button">View My Collections</a></li>
+              <li><a class="dropdown-item" href="#" type="button">Log Out</a></li>
+            </ul>
+          </div>
+
+
+          <% } else{ %>
+          <a class="btn btn-outline-success me-2" href="/login" role="button">Login</a>
+          <a class="btn btn-outline-secondary" href="/register" role="button">Register</a>
+          <% } %>
+        </form>
+      </nav>
     </div>
   </div>
 </nav>

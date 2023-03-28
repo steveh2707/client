@@ -1,0 +1,94 @@
+<%- include('components/header') %>
+
+<div class='login-background'>
+
+  <div class="outer">
+    <div class="middle">
+      <div class="card text-center login-card">
+        <div class="card-header">
+          <h3>
+            StacksOfWax
+          </h3>
+
+        </div>
+        <div class="card-body">
+
+          <form method="POST" class="needs-validation" id="send" action="/login" novalidate>
+
+            <h5 class="card-title">Login</h5>
+            <p class="card-text">Please enter your username and password to login.</p>
+
+
+
+            <div class="input-group mb-3 needs-validation">
+              <span class="input-group-text" id="basic-addon1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-person-fill" viewBox="0 0 16 16">
+                  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                </svg>
+              </span>
+              <input type="text" class="form-control" id="validationusername" placeholder="Username"
+                aria-label="Username" aria-describedby="basic-addon1" name="username" required>
+              <div class="invalid-feedback">
+                Please fill in your username.
+              </div>
+            </div>
+
+            <div class="input-group mb-3 needs-validation">
+              <span class="input-group-text" id="basic-addon1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  class="bi bi-lock-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                </svg>
+              </span>
+              <input type="text" class="form-control" placeholder="password" aria-label="Username"
+                aria-describedby="basic-addon1" name="password" required>
+              <div class="invalid-feedback">
+                Please fill in your password.
+              </div>
+            </div>
+
+            <% if (typeof data !== 'undefined') { %>
+            <p class="card-text text-danger"> <%= data.message %> </p>
+            <% } %>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+            <a href="/" class="btn btn-secondary">Back</a>
+          </form>
+
+        </div>
+        <div class="card-footer text-body-secondary">
+
+          <a class="link-none" href="/register">
+            Don't have an account?
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
