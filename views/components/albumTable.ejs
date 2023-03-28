@@ -1,0 +1,42 @@
+<table class="table table-dark align-middle">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center">Image</th>
+      <th scope="col">Album Name</th>
+      <th scope="col">Artist</th>
+      <th scope="col" class="text-center">Release Year</th>
+      <th scope="col" class="text-center">Record Label</th>
+      <th scope="col" class="text-center">Genre</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% data.forEach(album=> { %>
+
+    <tr>
+      <th scope="row" class="text-center"><%= album.album_id %></th>
+      <td class="imageholder">
+        <a href="/albums/<%= album.album_id %>">
+          <img class="image" src=<%=album.cover_image_url %>>
+        </a>
+      </td>
+      <td>
+        <a class="link-none" href="/albums/<%= album.album_id %>"><%= album.album_name %></a>
+      </td>
+      <td>
+        <% album.albumArtists.forEach(artist=> { %>
+        <a class="link-none" href="/artists/<%= artist.artist_id %>">
+          <%= artist.artist_name %>
+        </a>
+        <% }) %>
+      </td>
+      <td class="text-center"><%= album.release_year %></td>
+      <td class="text-center"><%= album.record_label_name %></td>
+      <td class="text-center"><%= album.genre_name %></td>
+    </tr>
+
+    <% }) %>
+
+  </tbody>
+</table>
