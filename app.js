@@ -20,13 +20,11 @@ app.use(sessions({
 }));
 
 app.get('/', (req, res) => {
-
   let sessionObj = req.session
 
-  console.log(sessionObj)
+  // console.log(sessionObj)
 
   // let page = req.query.page;
-
   let ep = `http://localhost:4000/collections`
 
   axios.get(ep).then((response) => {
@@ -78,87 +76,111 @@ app.post('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
 
-  let ep = `http://localhost:4000/albumart`
-
-  axios.get(ep).then((response) => {
-    let data = response.data;
-    res.render('register', { data })
-  })
+  let sessionObj = req.session;
+  if (sessionObj.sess_valid) {
+    res.redirect('/')
+  } else {
+    res.render('register')
+  }
 })
 
 app.get('/collections/:collectionid', (req, res) => {
 
+  let sessionObj = req.session
   let c_id = req.params.collectionid
 
   let ep = `http://localhost:4000/collections/${c_id}`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('collection', { data })
+    res.render('collection', { data, user: sessionObj.sess_user })
   })
 })
 
 
 app.get('/addcollection', (req, res) => {
 
-  let ep = `http://localhost:4000/albums`
+  let sessionObj = req.session
 
-  axios.get(ep).then((response) => {
-    let data = response.data;
-    res.render('addCollection', { data })
-  })
+  if (sessionObj.sess_valid) {
+    let ep = `http://localhost:4000/albums`
+
+    axios.get(ep).then((response) => {
+      let data = response.data;
+      res.render('addCollection', { data, user: sessionObj.sess_user })
+    })
+  } else {
+    res.redirect('/login')
+  }
+
+
 })
 
 app.post('/addcollection', (req, res) => {
 
+  let sessionObj = req.session
   let collectionName = req.body.collectionname;
-  let albumIDStringArray = req.body.album_id;
-  let user_id = req.session.sess_user.user_id;
+  let albumIDArray = req.body.album_id;
+  let userID = sessionObj.sess_user.user_id;
+  let apiKey = "66spev4efktkz3"
 
-  if (albumIDStringArray != null) {
+  if (albumIDArray != null) {
 
-    let albumIDs;
-
-    if (typeof albumIDStringArray === 'string') {
-      albumIDs = [Number(albumIDStringArray)]
-    } else {
-      albumIDs = albumIDStringArray.map(Number)
+    if (typeof albumIDArray === 'string') {
+      albumIDArray = [albumIDArray]
     }
-    console.log(user_id)
+
+    console.log(userID)
     console.log(collectionName)
-    console.log(albumIDs)
+    console.log(albumIDArray)
 
 
     let ep = `http://localhost:4000/addcollection`
 
-    // set up api end point
+    axios.post(ep, querystring.stringify({ apiKey, userID, collectionName, albumIDArray })).then(response => {
 
-    // axios.post(ep).then((response) => {
+      console.log(response.data)
 
-    //   // set up success/failure view with link to created collection
+      //   let data = response.data;
 
-    // })
+      //   if (data.success) {
+      //     sessionObj.sess_valid = true;
+      //     sessionObj.sess_user = response.data.user;
+      //     res.redirect('/')
+      //   } else {
+      //     res.render('login', { data })
+      //   }
+
+      // }).catch((error) => {
+      //   console.log(error);
+    }).catch((error) => {
+      console.log("Not working")
+    })
+
+
   }
 })
 
 app.get('/albums', (req, res) => {
 
+  let sessionObj = req.session
   let ep = `http://localhost:4000/albums`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('albums', { data })
+    res.render('albums', { data, user: sessionObj.sess_user })
   })
 })
 
 
 app.get('/artists', (req, res) => {
 
+  let sessionObj = req.session
   let ep = `http://localhost:4000/artists`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('artists', { data })
+    res.render('artists', { data, user: sessionObj.sess_user })
   })
 })
 
