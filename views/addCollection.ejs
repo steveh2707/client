@@ -8,42 +8,27 @@
     <h3>Add Collection
     </h3>
 
-
-
-    <!-- <div class="mb-3 addcollection">
-
-      <label for="exampleFormControlInput1" class="form-label">Collection Name</label>
-
-      <input type="text" class="form-control" id="collectionnameinput" placeholder="Collection Name"
-        name="collectionname" required>
-
-      <div class="invalid-feedback">
-        Please choose a username.
-      </div>
-
-    </div> -->
-
     <div class="addcollection">
       <p>Add Collection Name and select desired albums from the list below</p>
+
+      <div class="input-group mb-3">
+        <span class="input-group-text">User</span>
+        <input type="text" class="form-control" id="collectionnameinput" placeholder=<%= user.user_name %>
+          aria-label="CollectionName" name="collectionname" disabled>
+
+      </div>
+
       <div class="input-group mb-3">
         <span class="input-group-text">Collection Name</span>
-
         <input type="text" class="form-control" id="collectionnameinput" placeholder="Collection Name"
           aria-label="CollectionName" name="collectionname" required>
-
         <button class="btn btn-primary" type="submit" id="button-addon2">Add Collection</button>
-
         <div class="invalid-feedback">
           Please choose a Collection Name.
         </div>
       </div>
+
     </div>
-
-
-
-
-
-
   </div>
 
   <table class="table table-dark align-middle">

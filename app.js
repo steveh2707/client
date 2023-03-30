@@ -124,40 +124,27 @@ app.post('/addcollection', (req, res) => {
   let userID = sessionObj.sess_user.user_id;
   let apiKey = "66spev4efktkz3"
 
-  if (albumIDArray != null) {
 
-    if (typeof albumIDArray === 'string') {
-      albumIDArray = [albumIDArray]
+  if (sessionObj.sess_valid) {
+    if (albumIDArray != null) {
+      if (typeof albumIDArray === 'string') {
+        albumIDArray = [albumIDArray]
+      }
+
+      let ep = `http://localhost:4000/addcollection`
+
+      axios.post(ep, querystring.stringify({ apiKey, userID, collectionName, albumIDArray })).then(response => {
+
+        let data = response.data;
+
+        if (data.success) {
+          res.redirect(`/collections/${data.itemsAdded.collection_id}`)
+        }
+
+      }).catch((error) => {
+        console.log("Not working")
+      })
     }
-
-    console.log(userID)
-    console.log(collectionName)
-    console.log(albumIDArray)
-
-
-    let ep = `http://localhost:4000/addcollection`
-
-    axios.post(ep, querystring.stringify({ apiKey, userID, collectionName, albumIDArray })).then(response => {
-
-      console.log(response.data)
-
-      //   let data = response.data;
-
-      //   if (data.success) {
-      //     sessionObj.sess_valid = true;
-      //     sessionObj.sess_user = response.data.user;
-      //     res.redirect('/')
-      //   } else {
-      //     res.render('login', { data })
-      //   }
-
-      // }).catch((error) => {
-      //   console.log(error);
-    }).catch((error) => {
-      console.log("Not working")
-    })
-
-
   }
 })
 
