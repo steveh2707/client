@@ -56,7 +56,7 @@ app.post('/login', (req, res) => {
 
   axios.post(ep, querystring.stringify({ user_name, password })).then(response => {
 
-    console.log(response)
+    // console.log(response)
 
     let data = response.data;
 
@@ -72,6 +72,11 @@ app.post('/login', (req, res) => {
   })
 })
 
+app.get('/logout', (req, res) => {
+  delete req.session.sess_valid;
+  delete req.session.sess_user
+  res.redirect('/')
+})
 
 app.get('/register', (req, res) => {
   let sessionObj = req.session;

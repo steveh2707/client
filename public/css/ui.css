@@ -151,6 +151,16 @@ body {
   border-radius: 10px;
 }
 
+.genres {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.genre ~ .genre::before {
+  content: ", ";
+}
+
 .collection-scroll ul {
   margin: 20px 0px;
   list-style: none;

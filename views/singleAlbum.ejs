@@ -17,10 +17,15 @@
         <%= artist.artist_name %>
         <% }) %></h3>
 
-      <h3><%= data.genre_name %></h3>
-      <h3><% data.subgenres.forEach(genre => { %>
-        <%= genre.genre_name %>
-        <% }) %></h3>
+      <ul class="genres">
+        <li class="genre"><%= data.genre_name %></li>
+        <% data.subgenres.forEach(genre => { %>
+        <li class="genre">
+          <%= genre.genre_name %>
+        </li>
+
+        <% }) %>
+      </ul>
 
       <h3><%= data.record_label_name %></h3>
 
@@ -32,13 +37,16 @@
 
 <table class="table table-dark align-middle table table-striped">
   <tbody>
+    <% let index =1 %>
     <% data.tracks.forEach(track=> { %>
     <tr>
-      <th scope="row" class="text-center">1</th>
+      <th scope="row" class="text-center" style="width: 50px;"><%= index++ %></th>
       <td>
         <%= track.track_name %>
       </td>
-      <td class="text-center">1:11</td>
+      <td class="text-center">
+        <%= track.track_playtime.toFixed(2) %>
+      </td>
     </tr>
 
     <% }) %>
