@@ -1,0 +1,72 @@
+<%- include('components/header') %>
+<%- include('components/navbar') %>
+
+
+
+
+<div class="container ">
+  <div class="row">
+    <div class="col-4">
+      <img src=<%=data.cover_image_url %> class="img-fluid album-image" alt="...">
+
+
+    </div>
+    <div class="col light-text align-middle">
+      <h3><%= data.album_name %> (<%= data.release_year %>)</h3>
+      <h3><% data.artists.forEach(artist => { %>
+        <%= artist.artist_name %>
+        <% }) %></h3>
+
+      <h3><%= data.genre_name %></h3>
+      <h3><% data.subgenres.forEach(genre => { %>
+        <%= genre.genre_name %>
+        <% }) %></h3>
+
+      <h3><%= data.record_label_name %></h3>
+
+    </div>
+
+  </div>
+</div>
+<br>
+
+<table class="table table-dark align-middle table table-striped">
+  <tbody>
+    <% data.tracks.forEach(track=> { %>
+    <tr>
+      <th scope="row" class="text-center">1</th>
+      <td>
+        <%= track.track_name %>
+      </td>
+      <td class="text-center">1:11</td>
+    </tr>
+
+    <% }) %>
+
+  </tbody>
+</table>
+
+<br>
+
+<div class="light-text">
+  <h5> Featured on:</h5>
+
+
+  <div class="collection-scroll">
+    <ul>
+      <% data.collections.forEach(collection => { %>
+      <a class="link-none" href="/collections/<%= collection.collection_id %>">
+        <li>
+          <%= collection.collection_name %>
+        </li>
+      </a>
+
+
+      <% }) %>
+    </ul>
+  </div>
+
+</div>
+
+
+<%- include('components/footer') %>

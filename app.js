@@ -19,32 +19,34 @@ app.use(sessions({
   resave: false
 }));
 
+app.use((req, res, next) => {
+  res.locals = {
+    user: req.session.sess_user
+  };
+  next();
+});
+
 app.get('/', (req, res) => {
-  let sessionObj = req.session
-
-  // console.log(sessionObj)
-
   // let page = req.query.page;
   let ep = `http://localhost:4000/collections`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('collections', { data, user: sessionObj.sess_user })
+    res.render('allcollections', { data })
   })
 })
 
 app.get('/login', (req, res) => {
   let sessionObj = req.session;
+
   if (sessionObj.sess_valid) {
     res.redirect('/')
   } else {
     res.render('login')
   }
-
 })
 
 app.post('/login', (req, res) => {
-
   let sessionObj = req.session;
 
   let user_name = req.body.username;
@@ -65,18 +67,15 @@ app.post('/login', (req, res) => {
     } else {
       res.render('login', { data })
     }
-
   }).catch((error) => {
     console.log(error);
   })
-
-
 })
 
 
 app.get('/register', (req, res) => {
-
   let sessionObj = req.session;
+
   if (sessionObj.sess_valid) {
     res.redirect('/')
   } else {
@@ -85,21 +84,18 @@ app.get('/register', (req, res) => {
 })
 
 app.get('/collections/:collectionid', (req, res) => {
-
-  let sessionObj = req.session
   let c_id = req.params.collectionid
 
   let ep = `http://localhost:4000/collections/${c_id}`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('collection', { data, user: sessionObj.sess_user })
+    res.render('singleCollection', { data })
   })
 })
 
 
 app.get('/addcollection', (req, res) => {
-
   let sessionObj = req.session
 
   if (sessionObj.sess_valid) {
@@ -107,23 +103,19 @@ app.get('/addcollection', (req, res) => {
 
     axios.get(ep).then((response) => {
       let data = response.data;
-      res.render('addCollection', { data, user: sessionObj.sess_user })
+      res.render('addCollection', { data })
     })
   } else {
     res.redirect('/login')
   }
-
-
 })
 
 app.post('/addcollection', (req, res) => {
-
   let sessionObj = req.session
   let collectionName = req.body.collectionname;
   let albumIDArray = req.body.album_id;
   let userID = sessionObj.sess_user.user_id;
   let apiKey = "66spev4efktkz3"
-
 
   if (sessionObj.sess_valid) {
     if (albumIDArray != null) {
@@ -149,28 +141,38 @@ app.post('/addcollection', (req, res) => {
 })
 
 app.get('/albums', (req, res) => {
-
-  let sessionObj = req.session
   let ep = `http://localhost:4000/albums`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('albums', { data, user: sessionObj.sess_user })
+    res.render('allAlbums', { data })
   })
 })
 
+app.get('/albums/:albumid', (req, res) => {
+  let a_id = req.params.albumid
+
+  let ep = `http://localhost:4000/albums/${a_id}`
+
+  axios.get(ep).then((response) => {
+    let data = response.data;
+    res.render('singleAlbum', { data })
+  })
+})
 
 app.get('/artists', (req, res) => {
-
-  let sessionObj = req.session
   let ep = `http://localhost:4000/artists`
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('artists', { data, user: sessionObj.sess_user })
+    res.render('allArtists', { data })
   })
 })
 
+
+app.use((req, res) => {
+  res.status(404).render('pageNotFound')
+})
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started on: localhost: 3000");

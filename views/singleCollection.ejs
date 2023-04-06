@@ -1,0 +1,37 @@
+<%- include('components/header') %>
+<%- include('components/navbar') %>
+
+<% if(data.message!="collection does not exist") { %>
+
+
+<div class="myheadings">
+  <h3><%= data.collection_name %></h3>
+  <h4>Created by:
+    <a class="link-none" href="/users/<%= data.user_id %>">
+      <%= data.user_name %>
+    </a>
+  </h4>
+
+  <% 
+  
+  let createdDateTime = new Date(data.collection_last_edit_date)
+  let lastEditDateTime = new Date(data.collection_last_edit_date)
+  var options = { weekday: 'short', year: '2-digit', month: 'long', day: 'numeric' };
+
+  %>
+
+  <h6>Created: <%= createdDateTime.toLocaleString("en-GB", options) %> </h6>
+  <h6>Last edited: <%= lastEditDateTime.toLocaleString("en-GB", options) %></h6>
+</div>
+
+<%- include('components/albumTable', {data: data.albums}) %>
+
+<% } else { %>
+<div class="myheadings">
+  <h3>Collection does not exist</h3>
+</div>
+
+<% } %>
+
+
+<%- include('components/footer') %>

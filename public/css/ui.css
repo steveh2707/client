@@ -13,6 +13,10 @@ body {
   height: 100%;
 }
 
+.light-text {
+  color: var(--foreground);
+}
+
 .login-background {
   background-image: url("https://blog.spoongraphics.co.uk/wp-content/uploads/2015/10/Blurred-Background-02.jpg");
   /* background-image: url("https://images.hdqwalls.com/download/minimal-music-shapes-8k-0w-7680x4320.jpg"); */
@@ -57,14 +61,15 @@ body {
   border-radius: 10px;
   text-align: center;
   margin-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .myheadings h3 {
-  padding: 10px;
+  padding-top: 10px;
 }
 
 .myheadings h2 {
-  padding: 10px;
+  padding-top: 10px;
 }
 
 .link-none {
@@ -140,6 +145,28 @@ body {
   max-width: 600px;
   margin: auto;
   padding-bottom: 10px;
+}
+
+.album-image {
+  border-radius: 10px;
+}
+
+.collection-scroll ul {
+  margin: 20px 0px;
+  list-style: none;
+  white-space: nowrap;
+  overflow: auto;
+}
+
+.collection-scroll ul li {
+  display: inline-block;
+  border-radius: 10px;
+  width: 150px;
+  line-height: 150px;
+  text-align: center;
+  background-color: #2c3034;
+  margin: 0px 5px;
+  /* width: 300px; */
 }
 
 /* .addcollection label {
