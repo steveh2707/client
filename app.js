@@ -46,6 +46,49 @@ app.get('/login', (req, res) => {
   }
 })
 
+app.post('/collections/edit/:collectionid', (req, res) => {
+  let sessionObj = req.session;
+
+  if (sessionObj.sess_valid) {
+
+    let c_id = req.params.collectionid
+    let albumNumStartArray = req.body.albumNumStart
+    let albumNumEndArray = req.body.albumNumEnd
+    let userID = sessionObj.sess_user.user_id;
+    console.log(userID)
+    console.log(req.params.collectionid)
+    console.log(req.body.albumNumStart)
+    console.log(req.body.albumNumEnd)
+
+
+
+  } else {
+    res.redirect('/login')
+  }
+
+  // let user_name = req.body.username;
+  // let password = req.body.password;
+
+  // let ep = `http://localhost:4000/login`
+
+  // axios.post(ep, querystring.stringify({ user_name, password })).then(response => {
+
+  //   // console.log(response)
+
+  //   let data = response.data;
+
+  //   if (data.success) {
+  //     sessionObj.sess_valid = true;
+  //     sessionObj.sess_user = response.data.user;
+  //     res.redirect('/')
+  //   } else {
+  //     res.render('login', { data })
+  //   }
+  // }).catch((error) => {
+  //   console.log(error);
+  // })
+})
+
 app.post('/login', (req, res) => {
   let sessionObj = req.session;
 
@@ -95,7 +138,12 @@ app.get('/collections/:collectionid', (req, res) => {
 
   axios.get(ep).then((response) => {
     let data = response.data;
-    res.render('singleCollection', { data })
+
+    if (data.success) {
+      res.render('singleCollection', { data: data.collection })
+    } else {
+      res.redirect('/pageNotFound')
+    }
   })
 })
 
