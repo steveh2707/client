@@ -11,7 +11,7 @@
 
 
     </div>
-    <div class="col light-text align-middle">
+    <div class="col light-text align-middle" style="margin-top: 50px;">
       <h3><%= data.album_name %> (<%= data.release_year %>)</h3>
       <h3><% data.artists.forEach(artist => { %>
         <%= artist.artist_name %>
@@ -76,6 +76,7 @@
   </div>
 
 </div>
+<br>
 
 
 <%- include('components/footer') %>

@@ -36,6 +36,17 @@ app.get('/', (req, res) => {
   })
 })
 
+app.get('/users/:userid', (req, res) => {
+  let u_id = req.params.userid;
+
+  let ep = `http://localhost:4000/users/${u_id}`
+
+  axios.get(ep).then((response) => {
+    let data = response.data;
+    res.render('userCollections', { data })
+  })
+})
+
 app.get('/login', (req, res) => {
   let sessionObj = req.session;
 
@@ -54,39 +65,74 @@ app.post('/collections/edit/:collectionid', (req, res) => {
     let c_id = req.params.collectionid
     let albumNumStartArray = req.body.albumNumStart
     let albumNumEndArray = req.body.albumNumEnd
+    let collectionAlbumID = req.body.collectionAlbumID
     let userID = sessionObj.sess_user.user_id;
     console.log(userID)
-    console.log(req.params.collectionid)
-    console.log(req.body.albumNumStart)
-    console.log(req.body.albumNumEnd)
+    console.log(c_id)
+    console.log(albumNumStartArray)
+    console.log(albumNumEndArray)
+    console.log(collectionAlbumID)
 
+    let changes = [];
 
+    for (let i = 0; i < albumNumStartArray.length; i++) {
+      if (albumNumStartArray[i] != albumNumEndArray[i]) {
+        changes.push({
+          collectionAlbumID: collectionAlbumID[i],
+          albumNumEnd: albumNumEndArray[i]
+        })
+      }
+    }
+
+    let promises = []
+    let responses = []
+
+    let ep = `http://localhost:4000/reordercollection/${c_id}`
+
+    changes.forEach(change => {
+      promises.push(
+        axios.post(ep, querystring.stringify(change)).then(response => {
+          responses.push(response);
+        })
+      )
+    })
+
+    Promise.all(promises).then(() => {
+      console.log(`changed ${responses.length} rows`)
+      res.redirect(`/collections/${c_id}`)
+    });
 
   } else {
     res.redirect('/login')
   }
+})
 
-  // let user_name = req.body.username;
-  // let password = req.body.password;
+app.post('/addcomment/:collection_id', (req, res) => {
+  let sessionObj = req.session;
+  let c_id = req.params.collection_id;
+  let comment_message = req.body.commentMessage;
+  let user_id = sessionObj.sess_user.user_id;
 
-  // let ep = `http://localhost:4000/login`
+  if (comment_message == "") return res.redirect(`/collections/${c_id}`)
 
-  // axios.post(ep, querystring.stringify({ user_name, password })).then(response => {
+  if (sessionObj.sess_valid) {
+    let ep = `http://localhost:4000/addcomment/${c_id}`
 
-  //   // console.log(response)
+    axios.post(ep, querystring.stringify({ c_id, comment_message, user_id })).then(response => {
+      let data = response.data;
 
-  //   let data = response.data;
+      if (data.success) {
+        res.redirect(`/collections/${c_id}`)
+      } else {
+        res.render('login', { data })
+      }
+    }).catch((error) => {
+      console.log(error);
+    })
+  } else {
+    res.redirect('/login')
+  }
 
-  //   if (data.success) {
-  //     sessionObj.sess_valid = true;
-  //     sessionObj.sess_user = response.data.user;
-  //     res.redirect('/')
-  //   } else {
-  //     res.render('login', { data })
-  //   }
-  // }).catch((error) => {
-  //   console.log(error);
-  // })
 })
 
 app.post('/login', (req, res) => {

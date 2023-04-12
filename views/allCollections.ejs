@@ -1,60 +1,11 @@
-<%- include('components/header', {user}) %>
+<%- include('components/header') %>
 <%- include('components/navbar') %>
 
 <div class="myheadings">
   <h2>All Collections</h2>
-
-
 </div>
 
-<div class="row row-cols-1 row-cols-sm-3 row-cols-lg-4 g-4">
-
-  <% data.forEach(collection=> { %>
-
-  <a class="link-none" href="/collections/<%= collection.collection_id %>">
-    <div class=" col">
-      <div class="card h-100 cardborder text-center mycard">
-
-        <div class="card-img-top">
-          <div class="cardimage">
-            <img class="image" src=<%=collection.albumImages[0] %>>
-            <img class="image" src=<%=collection.albumImages[1] %>>
-          </div>
-          <div class="cardimage">
-            <img class="image" src=<%=collection.albumImages[2] %>>
-            <img class="image" src=<%=collection.albumImages[3] %>>
-          </div>
-        </div>
-
-        <div class="card-body">
-          <h5 class="card-title">
-            <%= collection.collection_name %>
-          </h5>
-
-          <p class="card-text">
-            <a class="link-none" href="/users/<%= collection.user_id %>">
-              <%= collection.user_name %>
-            </a>
-          </p>
-        </div>
-        <div class="card-footer">
-          <% 
-          let currentDateTime = new Date()
-          let lastEditDateTime = new Date(collection.collection_last_edit_date)
-
-          let millisecs = currentDateTime.getTime()-lastEditDateTime.getTime()
-          let days = Math.floor(millisecs/(1000*60*60*24))  
-          %>
-          <small class="text-muted">Last updated: <%=days%> days ago
-          </small>
-        </div>
-      </div>
-    </div>
-  </a>
-
-
-  <% }) %>
-</div>
+<%- include('components/collectionTable', {data}) %>
 
 <br>
 

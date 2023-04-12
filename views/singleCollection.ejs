@@ -2,28 +2,48 @@
 <%- include('components/navbar') %>
 
 
+<% 
+let userOwner = typeof user !== 'undefined' && user.user_id==data.user_id;
+let userLoggedIn = (typeof user !== 'undefined')
+%>
 
-
-<div class="myheadings">
-  <h3><%= data.collection_name %></h3>
-  <h4>Created by:
-    <a class="link-none" href="/users/<%= data.user_id %>">
-      <%= data.user_name %>
-    </a>
-  </h4>
-
-  <% 
-  let createdDateTime = new Date(data.collection_last_edit_date)
-  let lastEditDateTime = new Date(data.collection_last_edit_date)
-  var options = { weekday: 'short', year: '2-digit', month: 'long', day: 'numeric' };
-  %>
-
-  <h6>Created: <%= createdDateTime.toLocaleString("en-GB", options) %> </h6>
-  <h6>Last edited: <%= lastEditDateTime.toLocaleString("en-GB", options) %></h6>
-</div>
 
 
 <form method="POST" id="edit" action="/collections/edit/<%= data.collection_id %>">
+
+  <div class="mycollectionheading">
+    <div class="headingimagecontainer myheadingssidebyside">
+      <div class="cardimage">
+        <img class="image" src=<%=data.albums[0].cover_image_url %>>
+        <img class="image" src=<%=data.albums[1].cover_image_url %>>
+      </div>
+      <div class="cardimage">
+        <img class="image" src=<%=data.albums[2].cover_image_url %>>
+        <img class="image" src=<%=data.albums[3].cover_image_url %>>
+      </div>
+    </div>
+    <div class="myheadingstext">
+      <h1><%= data.collection_name %></h1>
+      <h4>Created by:
+        <a class="link-none" href="/users/<%= data.user_id %>">
+          <%= data.user_name %>
+        </a>
+      </h4>
+      <% 
+      let createdDateTime = new Date(data.collection_last_edit_date)
+      let lastEditDateTime = new Date(data.collection_last_edit_date)
+      var options = { weekday: 'short', year: '2-digit', month: 'long', day: 'numeric' };
+      %>
+
+      <h6>Created: <%= createdDateTime.toLocaleString("en-GB", options) %> </h6>
+      <h6>Last edited: <%= lastEditDateTime.toLocaleString("en-GB", options) %></h6>
+      <% if (userOwner) { %>
+      <button class="btn btn-primary" type="submit">Save Order</button>
+      <% } %>
+
+    </div>
+  </div>
+
 
   <div class="input-group mb-3">
     <span class="input-group-text" id="basic-addon1">
@@ -32,29 +52,29 @@
     <input type="text" class="form-control" id="albumSearch" onkeyup="searchTable()"
       placeholder="Search by album name, artist, release year, record label or genre...">
   </div>
-  <button class="btn btn-primary" type="submit">Update</button>
+
   <table class="table table-dark align-middle" id="albumTable">
     <thead>
       <tr>
-        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-center reorder-button">#</th>
         <th scope="col" class="text-center"></th>
-        <th scope="col">
+        <th scope="col" class="reorder-button">
           <i class="bi bi-arrow-down-up"></i>
           Album Name
         </th>
-        <th scope="col">
+        <th scope="col" class="reorder-button">
           <i class="bi bi-arrow-down-up"></i>
           Artist
         </th>
-        <th scope="col" class="text-center">
+        <th scope="col" class="text-center reorder-button">
           <i class="bi bi-arrow-down-up"></i>
           Release Year
         </th>
-        <th scope="col" class="text-center">
+        <th scope="col" class="text-center reorder-button">
           <i class="bi bi-arrow-down-up"></i>
           Record Label
         </th>
-        <th scope="col" class="text-center">
+        <th scope="col" class="text-center reorder-button">
           <i class="bi bi-arrow-down-up"></i>
           Genre
         </th>
@@ -65,8 +85,12 @@
 
       <% data.albums.forEach(album=> { %>
 
-      <tr draggable='true' ondragstart='start()' ondragover='dragover()' ondragend="dragend()">
-
+      <% if (userOwner) { %>
+      <tr draggable='true' ondragstart='start()' ondragover='dragover()' ondragend="dragend()"
+        style="cursor: all-scroll;">
+        <% } else { %>
+      <tr>
+        <% } %>
         <th id="num" scope="row" class="text-center"><%= album.album_num %></th>
 
         <td class="imageholder">
@@ -90,6 +114,7 @@
         <td>
           <input type="hidden" id="albumNumStart" name="albumNumStart" value=<%= album.album_num %>>
           <input type="hidden" id="albumNumEnd" name="albumNumEnd" value=<%= album.album_num %>>
+          <input type="hidden" id="collectionAlbumID" name="collectionAlbumID" value=<%= album.collection_album_id%>>
         </td>
       </tr>
 
@@ -99,6 +124,73 @@
 
   </table>
 </form>
+
+<br>
+
+<div class="light-text comments-section ">
+  <h4>Comments</h4>
+
+  <table class="table table-dark"">
+    <tbody>
+    <% if(userLoggedIn){ %>
+      <tr>
+        <th scope=" row">
+    <div class="user-circle"><%= user.user_name[0].toUpperCase() %></div>
+    </th>
+    <td>
+      <form method="POST" id="addcomment" action="/addcomment/<%= data.collection_id %>">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id="formGroupExampleInput2" name="commentMessage"
+            placeholder="Add a comment...">
+          <button class="btn btn-outline-primary" type="submit" id="button-addon2">Submit</button>
+        </div>
+      </form>
+    </td>
+    </tr>
+    <% } else { %>
+    <tr>
+      <th scope=" row">
+        <div class="user-circle">?</div>
+      </th>
+      <td>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control dark-input" id="formGroupExampleInput2" name="commentMessageDis"
+            placeholder="Please login to add a comment..." disabled>
+        </div>
+      </td>
+    </tr>
+
+    <% } %>
+
+    <% data.comments.forEach(comment => { %>
+    <tr>
+      <th scope=" row">
+        <div class="user-circle"><%= comment.user_name[0].toUpperCase() %></div>
+      </th>
+      <td>
+        <div>
+          <%= comment.user_name %>
+          <% 
+          let currentDateTime = new Date()
+          let lastEditDateTime = new Date(comment.comment_date_time)
+
+          let millisecs = currentDateTime.getTime()-lastEditDateTime.getTime()
+          let days = Math.floor(millisecs/(1000*60*60*24))  
+          %>
+          <small style="color: rgb(158, 158, 158); font-size: small;"> <%=days%> days ago
+          </small>
+        </div>
+        <div style="font-size: small;">
+          <%= comment.comment_message %>
+        </div>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody>
+  </table>
+
+
+</div>
 
 
 
@@ -134,7 +226,7 @@
 
     array.forEach(row => {
       let newRowIndex = row.rowIndex
-
+      // console.log(row.children[7].children)
       row.children[7].children[1].value = newRowIndex
     })
 

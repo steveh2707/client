@@ -16,6 +16,7 @@
   </div>
 </div>
 
+<% let userLoggedIn = (typeof user !== 'undefined') %>
 
 <nav class="navbar navbar-expand-md mynavbar" data-bs-theme="light">
   <div class="container-fluid">
@@ -53,7 +54,7 @@
       <nav class="navbar bg-body-tertiary">
         <form class="container-fluid justify-content-start">
 
-          <% if (typeof user !== 'undefined') { %>
+          <% if (userLoggedIn) { %>
           <div class="btn-group">
             <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -62,7 +63,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="/addcollection" type="Add Collection">Add New Collection</a></li>
-              <li><a class="dropdown-item" href="#" type="button">View My Collections</a></li>
+              <li><a class="dropdown-item" href="/users/<%= user.user_id %>" type="button">View My Collections</a></li>
               <li>
                 <!-- <a class="dropdown-item" href="#" type="button">Log Out</a> -->
                 <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#logOutModal">

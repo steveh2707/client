@@ -31,7 +31,15 @@
     </div>
   </div>
 
-  <table class="table table-dark align-middle">
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon1">
+      <i class="bi bi-search"></i>
+    </span>
+    <input type="text" class="form-control" id="albumSearch" onkeyup="searchTable()"
+      placeholder="Search by album name, artist, release year, record label or genre...">
+  </div>
+
+  <table class="table table-dark align-middle" id="albumTable">
     <thead>
       <tr>
         <th scope="col" class="text-center">Add?</th>
@@ -87,7 +95,40 @@
 
 <script>
 
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  function searchTable() {
+    // Declare variables
+    let input, filter, table, tr, td, i, txtValue
+    let searchVals = []
+    input = document.getElementById("albumSearch");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("albumTable");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      tdAlbum = tr[i].getElementsByTagName("td")[1];
+      tdArtist = tr[i].getElementsByTagName("td")[2];
+      tdYear = tr[i].getElementsByTagName("td")[3];
+      tdRecord = tr[i].getElementsByTagName("td")[4];
+      tdGenre = tr[i].getElementsByTagName("td")[5];
+
+      if (tdAlbum) {
+        searchVals[0] = tdAlbum.innerText.toUpperCase().indexOf(filter)
+        searchVals[1] = tdArtist.innerText.toUpperCase().indexOf(filter)
+        searchVals[2] = tdYear.innerText.toUpperCase().indexOf(filter)
+        searchVals[3] = tdRecord.innerText.toUpperCase().indexOf(filter)
+        searchVals[4] = tdGenre.innerText.toUpperCase().indexOf(filter)
+
+        if (searchVals.some(val => val > -1)) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  // Disabling form submissions if there are invalid fields
   (() => {
     'use strict'
 
