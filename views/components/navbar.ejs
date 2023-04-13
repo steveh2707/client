@@ -16,8 +16,6 @@
   </div>
 </div>
 
-<% let userLoggedIn = (typeof user !== 'undefined') %>
-
 <nav class="navbar navbar-expand-md mynavbar" data-bs-theme="light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Stacks Of Wax</a>
@@ -54,7 +52,7 @@
       <nav class="navbar bg-body-tertiary">
         <form class="container-fluid justify-content-start">
 
-          <% if (userLoggedIn) { %>
+          <% if (sess_valid) { %>
           <div class="btn-group">
             <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
               aria-expanded="false">

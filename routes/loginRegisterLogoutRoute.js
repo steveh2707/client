@@ -28,6 +28,7 @@ router.post('/login', (req, res) => {
     if (responseData.success) {
       sessionObj.sess_valid = true;
       sessionObj.sess_user = responseData.data;
+      console.log(sessionObj)
       res.redirect('/')
     } else {
       res.render('login', { data })

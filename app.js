@@ -15,6 +15,7 @@ const commentAddRoute = require('./routes/commentAddRoute')
 
 const albumsAllRoute = require('./routes/albumsAllRoute')
 const albumRoute = require('./routes/albumRoute')
+const albumAddToCollectionRoute = require('./routes/albumAddToCollectionRoute')
 const artistsAllRoute = require('./routes/artistsAllRoute')
 
 app.set('view engine', 'ejs')
@@ -32,7 +33,8 @@ app.use(sessions({
 
 app.use((req, res, next) => {
   res.locals = {
-    user: req.session.sess_user
+    user: req.session.sess_user,
+    sess_valid: req.session.sess_valid
   };
   next();
 });
@@ -48,6 +50,7 @@ app.use(commentAddRoute)
 
 app.use(albumsAllRoute)
 app.use(albumRoute)
+app.use(albumAddToCollectionRoute)
 app.use(artistsAllRoute)
 
 app.use((req, res) => {

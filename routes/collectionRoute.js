@@ -12,6 +12,7 @@ router.get('/collections/:collectionid', (req, res) => {
 
     if (responseData.success) {
       let data = responseData.data
+
       res.render('singleCollection', { data })
     } else {
       res.redirect('/pageNotFound')
