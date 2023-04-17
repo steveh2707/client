@@ -91,7 +91,7 @@
                   <form method="POST" class="needs-validation" id="send" action="/addAlbumToCollection">
                     <input type="hidden" id="collectionID" name="collectionID" value=<%= collection.collection_id %>>
                     <input type="hidden" id="albumID" name="albumID" value=<%= album.album_id %>>
-                    <button class="dropdown-item" type="submit">
+                    <button class="dropdown-item text-center" type="submit">
                       <%= collection.collection_name %>
                     </button>
                   </form>
@@ -100,12 +100,12 @@
 
                 <% } else if(sess_valid) { %>
                 <li>
-                  <a class="dropdown-item" href="/addcollection" type="button">New Collection</a>
+                  <a class="dropdown-item text-center" href="/addcollection" type="button">New Collection</a>
                 </li>
 
                 <% } else { %>
                 <li>
-                  <a class="dropdown-item" href="/login" type="button">Please Login</a>
+                  <a class="dropdown-item text-center" href="/login" type="button">Please Login</a>
                 </li>
                 <% } %>
               </ul>

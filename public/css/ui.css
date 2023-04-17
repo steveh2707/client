@@ -195,13 +195,13 @@ body {
   margin: 20px 0px;
   list-style: none;
   white-space: nowrap;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .collection-scroll ul li {
   display: inline-block;
   border-radius: 10px;
-  width: 150px;
+  width: 157px;
   line-height: 150px;
   text-align: center;
   background-color: #2c3034;
