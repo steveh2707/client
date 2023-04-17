@@ -6,8 +6,6 @@ const querystring = require('querystring');
 router.get('/', (req, res) => {
   let page = req.query.page || 1;
 
-  console.log(page)
-
   let ep = `http://localhost:4000/collections?page=${page}`
 
   // axios.post(ep, querystring.stringify({ c_id, comment_message, user_id })).then(response => {

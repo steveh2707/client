@@ -4,22 +4,20 @@ const axios = require('axios')
 const querystring = require('querystring');
 
 
-router.post('/collections/delete/:collectionid', (req, res) => {
+router.post('/deletecollection/:collectionid', (req, res) => {
   let sessionObj = req.session;
 
-  if (sessionObj.sess_valid) {
-    let c_id = req.params.collectionid
-    let userID = sessionObj.sess_user.user_id;
+  if (!sessionObj.sess_valid) return res.redirect('/login')
 
-    let ep = `http://localhost:4000/deletecollection/${c_id}`
+  let c_id = req.params.collectionid
+  let userID = sessionObj.sess_user.user_id;
 
-    axios.post(ep, querystring.stringify(userID)).then(response => {
-      res.redirect(`/`)
-    })
+  let ep = `http://localhost:4000/deletecollection/${c_id}`
 
-  } else {
-    res.redirect('/login')
-  }
+  axios.post(ep, querystring.stringify({ userID })).then(response => {
+    res.redirect(`/`)
+  })
+
 })
 
 

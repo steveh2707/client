@@ -6,10 +6,16 @@
 </div>
 
 <% if (albumAdded.album) { %>
+
 <div class="myalert alert alert-success alert-dismissible fade show" role="alert">
-  Successfully added album to collection
+  Successfully added
+  <a class="link-none" href="/albums/<%= albumAdded.album %>">album</a>
+  to
+  <a class="link-none" href="/collections/<%= albumAdded.collection %>">collection
+  </a>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
+
 <% } %>
 
 

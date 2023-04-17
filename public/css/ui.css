@@ -119,6 +119,10 @@ body {
   background-color: var(--foreground);
 }
 
+.mycard:hover {
+  transform: scale(1.03);
+}
+
 .cardborder {
   border-radius: 15px;
   border-color: black;
