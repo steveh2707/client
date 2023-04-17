@@ -9,25 +9,29 @@
 
 <br>
 
+<% if (responseData.totalPages>1) { %>
 <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
-
     <li class="page-item <%= (responseData.page===1) ? "disabled" : "" %>">
       <a class="page-link" href="?page=<%= responseData.page-1 %>">Previous</a>
     </li>
-
     <% for (let loop=1; loop<=responseData.totalPages; loop++) { %>
+    <% if (responseData.page===loop) { %>
+    <li class="page-item active" aria-current="page">
+      <span class="page-link"><%= loop %></span>
+    </li>
+    <% } else { %>
     <li class="page-item">
       <a class="page-link" href="?page=<%= loop %>"><%= loop %></a>
     </li>
     <% } %>
-
+    <% } %>
     <li class="page-item <%= (responseData.page===responseData.totalPages) ? "disabled" : "" %>">
       <a class="page-link" href="?page=<%= responseData.page+1 %>">Next</a>
     </li>
   </ul>
 </nav>
-
+<% } %>
 
 
 

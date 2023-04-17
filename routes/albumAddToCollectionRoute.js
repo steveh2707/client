@@ -15,9 +15,9 @@ router.post('/addAlbumToCollection', (req, res) => {
 
   axios.post(ep, querystring.stringify({ collectionID, albumID })).then(response => {
 
-    let responseData = response.data;
+    let albumAdded = response.data.success;
 
-    if (responseData.success) return res.redirect(`/albums`)
+    if (albumAdded) return res.redirect(`/albums?album=${albumID}&collection=${collectionID}`)
 
   }).catch((error) => {
     console.log("Not working")

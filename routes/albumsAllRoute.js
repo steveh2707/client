@@ -4,6 +4,11 @@ const axios = require('axios')
 
 router.get('/albums', (req, res) => {
 
+  let albumAdded = {
+    album: req.query.album,
+    collection: req.query.collection
+  }
+
   let ep = `http://localhost:4000/albums`
 
   axios.get(ep).then((response) => {
@@ -11,7 +16,7 @@ router.get('/albums', (req, res) => {
 
     if (responseData.success) {
       let data = responseData.data
-      res.render('allAlbums', { data })
+      res.render('allAlbums', { data, albumAdded })
     }
   })
 })

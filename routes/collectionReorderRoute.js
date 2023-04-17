@@ -21,7 +21,8 @@ router.post('/collections/reorder/:collectionid', (req, res) => {
       if (albumNumStartArray[i] != albumNumEndArray[i]) {
         changes.push({
           collectionAlbumID: collectionAlbumID[i],
-          albumNumEnd: albumNumEndArray[i]
+          albumNumEnd: albumNumEndArray[i],
+          userID: userID
         })
       }
     }
@@ -40,7 +41,6 @@ router.post('/collections/reorder/:collectionid', (req, res) => {
     })
 
     Promise.all(promises).then(() => {
-      console.log(`changed ${responses.length} rows`)
       res.redirect(`/collections/${c_id}`)
     });
 

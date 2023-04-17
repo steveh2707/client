@@ -1,0 +1,70 @@
+<td class="text-center">
+
+
+  <div class="dropdown">
+    <button class="btn btn-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+      data-bs-auto-close="outside">
+      <i class="bi bi-list"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li>
+        <a class="dropdown-item text-center" href="/albums/<%= album.album_id %>" type="button">See Album</a>
+      </li>
+      <li>
+        <a class="dropdown-item text-center" href="/artists/<%= album.albumArtists[0].artist_id %>" type="button">See
+          Artist</a>
+      </li>
+      <div class="btn-group dropstart">
+        <button type="button" class="dropdown-item dropdown-toggle text-center" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          Add to Collection
+        </button>
+
+        <ul class="dropdown-menu">
+          <% if (sess_valid && user.user_collections) { %>
+
+          <% user.user_collections.forEach(collection => { %>
+          <li>
+            <form method="POST" class="needs-validation" id="send" action="/addAlbumToCollection">
+              <input type="hidden" id="collectionID" name="collectionID" value=<%= collection.collection_id %>>
+              <input type="hidden" id="albumID" name="albumID" value=<%= album.album_id %>>
+              <button class="dropdown-item text-center" type="submit">
+                <%= collection.collection_name %>
+              </button>
+            </form>
+          </li>
+          <% }) %>
+
+          <% } else if(sess_valid) { %>
+          <li>
+            <a class="dropdown-item text-center" href="/addcollection" type="button">New Collection</a>
+          </li>
+
+          <% } else { %>
+          <li>
+            <a class="dropdown-item text-center" href="/login" type="button">Please Login</a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <% if (typeof userOwner !== 'undefined' && userOwner) { %>
+      <li>
+
+        <form method="POST" class="needs-validation" id="send" action="/removeAlbumFromCollection">
+          <input type="hidden" id="collectionID" name="collectionID" value=<%= collectionID%>>
+          <input type="hidden" id="albumID" name="albumID" value=<%= album.album_id %>>
+          <button class="dropdown-item text-center" type="submit">
+            Delete
+          </button>
+        </form>
+
+      </li>
+      <% } %>
+
+    </ul>
+  </div>
+
+
+
+</td>
