@@ -14,11 +14,13 @@ const collectionAddAlbumRoute = require('./routes/collectionAddAlbumRoute')
 const collectionReorderRoute = require('./routes/collectionReorderRoute')
 const collectionDeleteRoute = require('./routes/collectionDeleteRoute')
 const collectionDeleteAlbumRoute = require('./routes/collectionDeleteAlbumRoute')
-const commentAddRoute = require('./routes/commentAddRoute')
+const likeCommentAddRoute = require('./routes/likeCommentAddRoute')
 
 const albumsAllRoute = require('./routes/albumsAllRoute')
 const albumRoute = require('./routes/albumRoute')
 const artistsAllRoute = require('./routes/artistsAllRoute')
+
+const searchRoute = require('./routes/searchRoute')
 
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, '/public')));
@@ -51,11 +53,13 @@ app.use(collectionAddAlbumRoute)
 app.use(collectionReorderRoute)
 app.use(collectionDeleteRoute)
 app.use(collectionDeleteAlbumRoute)
-app.use(commentAddRoute)
+app.use(likeCommentAddRoute)
 
 app.use(albumsAllRoute)
 app.use(albumRoute)
 app.use(artistsAllRoute)
+
+app.use(searchRoute)
 
 app.use((req, res) => {
   res.status(404).render('pageNotFound')

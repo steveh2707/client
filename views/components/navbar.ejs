@@ -35,20 +35,20 @@
           <a class="nav-link" href="/artists">Artists</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Enter search term..." aria-label="Search">
+      <form id="search" class="d-flex" role="search" method="get" action="/search">
+        <input id="value" name="value" class="form-control me-2" type="search" placeholder="Enter search term..."
+          aria-label="Search" required>
         <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
 
       <nav class="navbar bg-body-tertiary">
-        <form class="container-fluid justify-content-start">
+        <div class="container-fluid justify-content-start">
 
           <% if (sess_valid) { %>
           <div class="btn-group">
             <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
               aria-expanded="false">
               <i class="bi bi-person-fill"></i>
-              <%= //user.user_name %>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="/addcollection" type="Add Collection">Add New Collection</a></li>
@@ -69,7 +69,7 @@
           </a>
           <!-- <a class="btn btn-outline-secondary" href="/register" role="button">Register</a> -->
           <% } %>
-        </form>
+        </div>
       </nav>
     </div>
   </div>

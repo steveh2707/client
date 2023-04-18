@@ -1,0 +1,73 @@
+<%- include('components/header') %>
+<%- include('components/navbar') %>
+
+<div class="myheadings">
+  <h3>Search Results</h3>
+</div>
+
+<div data-bs-theme="dark">
+  <h6> <%= numResults %> results for "<%= value %>"</h6>
+
+  <% if (data.collections.length>0) { %>
+  <div class="collection-scroll light-text">
+    <ul style="padding-left: 0px;">
+      <h2>Collections</h2>
+      <% data.collections.forEach(collection => { %>
+      <a class="link-none" href="/collections/<%= collection.collection_id %>">
+        <li>
+          <%= collection.collection_name %>
+        </li>
+      </a>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+  <% if (data.albums.length>0) { %>
+  <div class="collection-scroll light-text">
+    <ul style="padding-left: 0px;">
+      <h2>Albums</h2>
+      <% data.albums.forEach(album => { %>
+      <a class="link-none" href="/albums/<%= album.album_id %>">
+        <li>
+          <%= album.album_name %>
+        </li>
+      </a>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+  <% if (data.artists.length>0) { %>
+  <div class="collection-scroll light-text">
+    <ul style="padding-left: 0px;">
+      <h2>Artists</h2>
+      <% data.artists.forEach(artist => { %>
+      <a class="link-none" href="/artists/<%= artist.artist_id %>">
+        <li>
+          <%= artist.artist_name %>
+        </li>
+      </a>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+  <% if (data.users.length>0) { %>
+  <div class="collection-scroll light-text">
+    <ul style="padding-left: 0px;">
+      <h2>Users</h2>
+      <% data.users.forEach(user => { %>
+      <a class="link-none" href="/users/<%= user.user_id %>">
+        <li>
+          <%= user.user_name %>
+        </li>
+      </a>
+      <% }) %>
+    </ul>
+  </div>
+  <% } %>
+
+</div>
+
+<%- include('components/footer') %>
