@@ -6,6 +6,9 @@ const querystring = require('querystring');
 router.get('/login', (req, res) => {
   let sessionObj = req.session;
 
+  backURL = req.header('Referer') || '/';
+  sessionObj.backURL = backURL
+
   if (sessionObj.sess_valid) {
     res.redirect('/')
   } else {
@@ -29,7 +32,7 @@ router.post('/login', (req, res) => {
       sessionObj.sess_valid = true;
       sessionObj.sess_user = responseData.data;
 
-      res.redirect('/')
+      res.redirect(sessionObj.backURL)
     } else {
       res.render('login', { data })
     }
@@ -39,9 +42,15 @@ router.post('/login', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-  delete req.session.sess_valid;
-  delete req.session.sess_user
-  res.redirect('/')
+  let sessionObj = req.session;
+
+  backURL = req.header('Referer') || '/';
+  sessionObj.backURL = backURL
+
+  delete sessionObj.sess_valid;
+  delete sessionObj.sess_user
+
+  res.redirect(sessionObj.backURL)
 })
 
 router.get('/register', (req, res) => {
