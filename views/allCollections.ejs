@@ -5,6 +5,21 @@
   <h2>All Collections</h2>
 </div>
 
+<div class="sort-buttons">
+  <button type="button" class="btn btn-light dropdown-toggle sort-button" data-bs-toggle="dropdown"
+    aria-expanded="false">
+    Sort by: <%= currentSort.name %>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <% otherSortOptions.forEach(sort => { %>
+    <li>
+      <a class="dropdown-item" href="?page=1&sort=<%= sort.link %>"><%= sort.name %></a>
+    </li>
+    <% }) %>
+  </ul>
+</div>
+
+
 <%- include('components/collectionTable', {data: responseData.data}) %>
 
 <br>
@@ -13,7 +28,7 @@
 <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center">
     <li class="page-item <%= (responseData.page===1) ? "disabled" : "" %>">
-      <a class="page-link" href="?page=<%= responseData.page-1 %>">Previous</a>
+      <a class="page-link" href="?page=<%= responseData.page-1 %>&sort=<%= currentSort.link %>">Previous</a>
     </li>
     <% for (let loop=1; loop<=responseData.totalPages; loop++) { %>
     <% if (responseData.page===loop) { %>
@@ -22,12 +37,12 @@
     </li>
     <% } else { %>
     <li class="page-item">
-      <a class="page-link" href="?page=<%= loop %>"><%= loop %></a>
+      <a class="page-link" href="?page=<%= loop %>&sort=<%= currentSort.link %>"><%= loop %></a>
     </li>
     <% } %>
     <% } %>
     <li class="page-item <%= (responseData.page===responseData.totalPages) ? "disabled" : "" %>">
-      <a class="page-link" href="?page=<%= responseData.page+1 %>">Next</a>
+      <a class="page-link" href="?page=<%= responseData.page+1 %>&sort=<%= currentSort.link %>">Next</a>
     </li>
   </ul>
 </nav>

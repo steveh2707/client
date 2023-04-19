@@ -83,6 +83,17 @@ body {
   all: unset;
 }
 
+.sort-buttons {
+  margin: 0px 0px 15px auto;
+  display: flex;
+  width: fit-content;
+}
+
+.sort-button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 .headingimagecontainer {
   width: 300px;
   height: fit-content;
