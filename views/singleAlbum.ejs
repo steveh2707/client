@@ -1,21 +1,22 @@
 <%- include('components/header') %>
 <%- include('components/navbar') %>
 
-
-
-
-<div class="container ">
+<div class="container album-heading">
   <div class="row">
-    <div class="col-4">
+    <div class="" style="width:fit-content">
       <img src=<%=data.cover_image_url %> class="img-fluid album-image" alt="...">
 
 
     </div>
-    <div class="col light-text align-middle" style="margin-top: 50px;">
+    <div class="light-text align-middle album-text col">
       <h3><%= data.album_name %> (<%= data.release_year %>)</h3>
-      <h3><% data.artists.forEach(artist => { %>
-        <%= artist.artist_name %>
-        <% }) %></h3>
+      <h3>
+        <% data.artists.forEach(artist => { %>
+        <a class="link-none" href="/artists/<%= artist.artist_id %>">
+          <%= artist.artist_name %>
+        </a>
+        <% }) %>
+      </h3>
 
       <ul class="genres">
         <li class="genre"><%= data.genre_name %></li>
@@ -23,11 +24,10 @@
         <li class="genre">
           <%= genre.genre_name %>
         </li>
-
         <% }) %>
       </ul>
 
-      <h3><%= data.record_label_name %></h3>
+      <h5><%= data.record_label_name %></h5>
 
     </div>
 
@@ -73,7 +73,7 @@
   </div>
 
 </div>
-<br>
+
 
 
 <%- include('components/footer') %>

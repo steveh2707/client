@@ -9,7 +9,7 @@
   <thead>
     <tr>
       <th scope="col" class="text-center">#</th>
-      <th scope="col" class="text-center"></th>
+      <th scope="col" class="text-center tablehhidecolumn"></th>
       <th scope="col">
         <i class="bi bi-arrow-down-up"></i>
         Album Name
@@ -22,7 +22,7 @@
         <i class="bi bi-arrow-down-up"></i>
         Year
       </th>
-      <th scope="col" class="text-center">
+      <th scope="col" class="text-center tablehhidecolumn">
         <i class="bi bi-arrow-down-up"></i>
         Record Label
       </th>
@@ -43,7 +43,7 @@
 
       <th id="num" scope="row" class="text-center"><%= album.album_id %></th>
 
-      <td class="imageholder">
+      <td class="imageholder tablehhidecolumn">
         <a href="/albums/<%= album.album_id %>" draggable='false'>
           <img class="image" src=<%=album.cover_image_url %>>
         </a>
@@ -59,7 +59,7 @@
         <% }) %>
       </td>
       <td class="text-center"><%= album.release_year %></td>
-      <td class="text-center"><%= album.record_label_name %></td>
+      <td class="text-center tablehhidecolumn"><%= album.record_label_name %></td>
       <td class="text-center"><%= album.genre_name %></td>
 
       <%- include('albumTableDropdown', {album}) %>

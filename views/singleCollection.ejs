@@ -88,7 +88,7 @@ let userOwner = sess_valid && user.user_id==data.user_id
   <thead>
     <tr>
       <th scope="col" class="text-center reorder-button">#</th>
-      <th scope="col" class="text-center"></th>
+      <th scope="col" class="text-center tablehhidecolumn"></th>
       <th scope="col" class="reorder-button">
         <i class="bi bi-arrow-down-up"></i>
         Album Name
@@ -99,9 +99,9 @@ let userOwner = sess_valid && user.user_id==data.user_id
       </th>
       <th scope="col" class="text-center reorder-button">
         <i class="bi bi-arrow-down-up"></i>
-        Release Year
+        Year
       </th>
-      <th scope="col" class="text-center reorder-button">
+      <th scope="col" class="text-center reorder-button tablehhidecolumn">
         <i class="bi bi-arrow-down-up"></i>
         Record Label
       </th>
@@ -126,7 +126,7 @@ let userOwner = sess_valid && user.user_id==data.user_id
       <% } %>
       <th id="num" scope="row" class="text-center"><%= album.album_num %></th>
 
-      <td class="imageholder">
+      <td class="imageholder tablehhidecolumn">
         <a href="/albums/<%= album.album_id %>" draggable='false'>
           <img class="image" src=<%=album.cover_image_url %>>
         </a>
@@ -142,7 +142,7 @@ let userOwner = sess_valid && user.user_id==data.user_id
         <% }) %>
       </td>
       <td class="text-center"><%= album.release_year %></td>
-      <td class="text-center"><%= album.record_label_name %></td>
+      <td class="text-center tablehhidecolumn"><%= album.record_label_name %></td>
       <td class="text-center"><%= album.genre_name %></td>
 
       <%- include('components/albumTableDropdown', {album, userOwner, collectionID: data.collection_id}) %>

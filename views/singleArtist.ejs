@@ -1,0 +1,52 @@
+<%- include('components/header') %>
+<%- include('components/navbar') %>
+
+
+<div class="myheadings">
+  <h2>Artist - <%= data.artist_name %></h2>
+</div>
+
+<br>
+
+<div class="light-text">
+  <h5>Albums:</h5>
+</div>
+
+<br>
+
+<div class="row row-cols-1 row-cols-sm-3 row-cols-lg-4 g-4">
+
+  <% data.albums.forEach(album=> { %>
+
+  <a class="link-none" href="/albums/<%= album.album_id %>">
+    <div class=" col">
+      <div class="card h-100 cardborder text-center mycard">
+
+        <div class="card-img-top">
+          <div class="cardimage">
+            <img class="fullimage" src=<%=album.cover_image_url %>>
+          </div>
+          <div class="cardimage">
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">
+            <a class="link-none" href="/albums/<%= album.album_id %>">
+              <%= album.album_name %> (<%= album.release_year %>)
+            </a>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </a>
+  <% }) %>
+</div>
+
+<br>
+
+
+
+
+
+<%- include('components/footer') %>

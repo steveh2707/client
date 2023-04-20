@@ -33,8 +33,6 @@ router.post('/login', (req, res) => {
     sessionObj.sess_valid = true;
     sessionObj.sess_user = responseData.data;
 
-    console.log(sessionObj)
-
     res.redirect(sessionObj.backURL || '/')
 
   }).catch((error) => {
@@ -73,15 +71,11 @@ router.post('/register', (req, res) => {
   let gender = req.body.gender
   let nationality = req.body.nationality
 
-  // console.log(req.body)
-
   let ep = `http://localhost:4000/register`
 
   axios.post(ep, querystring.stringify({ user_name, password, dob, gender, nationality })).then(response => {
 
     let responseData = response.data;
-
-    console.log(responseData)
 
     if (!responseData.success) return res.render('register', { responseData })
 

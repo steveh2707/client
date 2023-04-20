@@ -10,8 +10,6 @@ router.get('/users/:userid', (req, res) => {
   axios.get(ep).then((response) => {
     let responseData = response.data;
 
-    console.log(responseData)
-
     if (responseData.success) {
       let data = responseData.data
       let user = responseData.user

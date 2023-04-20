@@ -19,6 +19,7 @@ const likeCommentAddRoute = require('./routes/likeCommentAddRoute')
 const albumsAllRoute = require('./routes/albumsAllRoute')
 const albumRoute = require('./routes/albumRoute')
 const artistsAllRoute = require('./routes/artistsAllRoute')
+const artistRoute = require('./routes/artistRoute')
 
 const searchRoute = require('./routes/searchRoute')
 
@@ -58,6 +59,7 @@ app.use(likeCommentAddRoute)
 app.use(albumsAllRoute)
 app.use(albumRoute)
 app.use(artistsAllRoute)
+app.use(artistRoute)
 
 app.use(searchRoute)
 
