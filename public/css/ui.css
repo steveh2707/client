@@ -312,6 +312,10 @@ body {
   right: 10px;
 }
 
+.hidedata {
+  font-size: small;
+}
+
 @media screen and (max-width: 895px) {
   .table .image {
     width: 50px;
@@ -329,6 +333,10 @@ body {
 
   .album-image {
     max-width: 250px;
+  }
+
+  .hidedata {
+    display: none;
   }
 }
 

@@ -60,7 +60,15 @@
       </td>
       <td class="text-center"><%= album.release_year %></td>
       <td class="text-center tablehhidecolumn"><%= album.record_label_name %></td>
-      <td class="text-center"><%= album.genre_name %></td>
+      <td class="text-center">
+        <%= album.genre_name %>
+        <div class="hidedata">
+          <% album.subGenres.forEach(genre => { %>
+          <%= genre.genre_name %>
+          <% }) %>
+        </div>
+
+      </td>
 
       <%- include('albumTableDropdown', {album}) %>
 
