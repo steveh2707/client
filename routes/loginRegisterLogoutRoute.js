@@ -28,14 +28,15 @@ router.post('/login', (req, res) => {
 
     let responseData = response.data;
 
-    if (responseData.success) {
-      sessionObj.sess_valid = true;
-      sessionObj.sess_user = responseData.data;
+    if (!responseData.success) return res.render('login', { responseData })
 
-      res.redirect(sessionObj.backURL)
-    } else {
-      res.render('login', { data })
-    }
+    sessionObj.sess_valid = true;
+    sessionObj.sess_user = responseData.data;
+
+    console.log(sessionObj)
+
+    res.redirect(sessionObj.backURL || '/')
+
   }).catch((error) => {
     console.log(error);
   })
@@ -61,6 +62,37 @@ router.get('/register', (req, res) => {
   } else {
     res.render('register')
   }
+})
+
+router.post('/register', (req, res) => {
+  let sessionObj = req.session;
+
+  let user_name = req.body.username;
+  let password = req.body.password;
+  let dob = req.body.dob;
+  let gender = req.body.gender
+  let nationality = req.body.nationality
+
+  // console.log(req.body)
+
+  let ep = `http://localhost:4000/register`
+
+  axios.post(ep, querystring.stringify({ user_name, password, dob, gender, nationality })).then(response => {
+
+    let responseData = response.data;
+
+    console.log(responseData)
+
+    if (!responseData.success) return res.render('register', { responseData })
+
+    sessionObj.sess_valid = true;
+    sessionObj.sess_user = responseData.data;
+
+    res.redirect(sessionObj.backURL || '/')
+
+  }).catch((error) => {
+    console.log(error);
+  })
 })
 
 module.exports = router;

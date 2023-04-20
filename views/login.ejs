@@ -42,8 +42,8 @@
               </div>
             </div>
 
-            <% if (typeof data !== 'undefined') { %>
-            <p class="card-text text-danger"> <%= data.message %> </p>
+            <% if (typeof responseData !== 'undefined') { %>
+            <p class="card-text text-danger"> <%= responseData.message %> </p>
             <% } %>
 
             <button class="btn btn-primary" type="submit">Login</button>

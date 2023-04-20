@@ -2,15 +2,15 @@
 <%- include('components/navbar') %>
 
 <div class="myheadings">
-  <h2>Collections - <%= data[0].user_name %></h2>
+  <h2>Collections - <%= user.user_name %></h2>
 </div>
+
+<% if (data.length === 0) { %>
+<a type="button" class="btn btn-light" href="/addcollection" type="Add Collection">Add a Collection</a>
+<% } %>
 
 <%- include('components/collectionTable', {data}) %>
 
 <br>
-
-
-
-
 
 <%- include('components/footer') %>

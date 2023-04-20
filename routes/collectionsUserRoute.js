@@ -10,9 +10,12 @@ router.get('/users/:userid', (req, res) => {
   axios.get(ep).then((response) => {
     let responseData = response.data;
 
+    console.log(responseData)
+
     if (responseData.success) {
       let data = responseData.data
-      res.render('userCollections', { data })
+      let user = responseData.user
+      res.render('userCollections', { data, user })
     }
   })
 })
