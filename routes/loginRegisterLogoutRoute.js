@@ -9,11 +9,10 @@ router.get('/login', (req, res) => {
   backURL = req.header('Referer') || '/';
   sessionObj.backURL = backURL
 
-  if (sessionObj.sess_valid) {
-    res.redirect('/')
-  } else {
-    res.render('login')
-  }
+  if (sessionObj.sess_valid) return res.redirect('/')
+
+  res.render('login')
+
 })
 
 router.post('/login', (req, res) => {
@@ -35,8 +34,9 @@ router.post('/login', (req, res) => {
 
     res.redirect(sessionObj.backURL || '/')
 
-  }).catch((error) => {
-    console.log(error);
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 
@@ -54,12 +54,9 @@ router.get('/logout', (req, res) => {
 
 router.get('/register', (req, res) => {
   let sessionObj = req.session;
+  if (sessionObj.sess_valid) return res.redirect('/')
 
-  if (sessionObj.sess_valid) {
-    res.redirect('/')
-  } else {
-    res.render('register')
-  }
+  res.render('register')
 })
 
 router.post('/register', (req, res) => {
@@ -84,8 +81,9 @@ router.post('/register', (req, res) => {
 
     res.redirect(sessionObj.backURL || '/')
 
-  }).catch((error) => {
-    console.log(error);
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

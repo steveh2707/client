@@ -9,12 +9,12 @@
   <h6> <%= numResults %> results for "<%= value %>"</h6>
 
   <% if (data.collections.length>0) { %>
-  <div class="collection-scroll light-text">
-    <ul style="padding-left: 0px;">
+  <div class="light-text">
+    <ul class="search-scroll">
       <h2>Collections</h2>
       <% data.collections.forEach(collection => { %>
       <a class="link-none" href="/collections/<%= collection.collection_id %>">
-        <li>
+        <li class="scroll-item">
           <%= collection.collection_name %>
         </li>
       </a>
@@ -24,12 +24,12 @@
   <% } %>
 
   <% if (data.albums.length>0) { %>
-  <div class="collection-scroll light-text">
-    <ul style="padding-left: 0px;">
+  <div class="light-text">
+    <ul class="search-scroll">
       <h2>Albums</h2>
       <% data.albums.forEach(album => { %>
-      <a class="link-none" href="/albums/<%= album.album_id %>">
-        <li>
+      <a class="link-none " href="/albums/<%= album.album_id %>">
+        <li class="scroll-item">
           <%= album.album_name %>
         </li>
       </a>
@@ -39,12 +39,12 @@
   <% } %>
 
   <% if (data.artists.length>0) { %>
-  <div class="collection-scroll light-text">
-    <ul style="padding-left: 0px;">
+  <div class="light-text">
+    <ul class="search-scroll">
       <h2>Artists</h2>
       <% data.artists.forEach(artist => { %>
       <a class="link-none" href="/artists/<%= artist.artist_id %>">
-        <li>
+        <li class="scroll-item">
           <%= artist.artist_name %>
         </li>
       </a>
@@ -54,12 +54,12 @@
   <% } %>
 
   <% if (data.users.length>0) { %>
-  <div class="collection-scroll light-text">
-    <ul style="padding-left: 0px;">
+  <div class="light-text">
+    <ul class="search-scroll">
       <h2>Users</h2>
       <% data.users.forEach(user => { %>
       <a class="link-none" href="/users/<%= user.user_id %>">
-        <li>
+        <li class="scroll-item">
           <%= user.user_name %>
         </li>
       </a>

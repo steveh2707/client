@@ -15,13 +15,14 @@ router.post('/collectionAddAlbum', (req, res) => {
   let ep = `http://localhost:4000/collectionAddAlbum`
 
   axios.post(ep, querystring.stringify({ collectionID, albumID, userID })).then(response => {
+    let responseData = response.data;
+    if (!responseData.success) return res.status(404).render('pageNotFound')
 
-    let albumAdded = response.data.success;
+    res.redirect(`/albums?album=${albumID}&collection=${collectionID}`)
 
-    if (albumAdded) return res.redirect(`/albums?album=${albumID}&collection=${collectionID}`)
-
-  }).catch((error) => {
-    console.log("Not working")
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 
 })

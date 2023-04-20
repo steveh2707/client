@@ -5,7 +5,6 @@ const querystring = require('querystring');
 
 router.get('/', (req, res) => {
   let page = req.query.page || 1;
-
   let sortQuery = req.query.sort
 
   let currentSort = ""
@@ -33,10 +32,13 @@ router.get('/', (req, res) => {
   axios.get(ep).then((response) => {
     let responseData = response.data;
 
-    if (responseData.success) {
-      // let data = responseData.data
-      res.render('allcollections', { responseData, currentSort, otherSortOptions })
-    }
+    if (!responseData.success) return res.redirect('/error')
+
+    res.render('allcollections', { responseData, currentSort, otherSortOptions })
+
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

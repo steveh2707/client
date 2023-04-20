@@ -2,7 +2,13 @@
 <%- include('components/navbar') %>
 
 <div class="light-text">
-  Page Not Found
+
+  <p>
+    An error has occurred, please try again.
+  </p>
+  <p>
+    <%= message || ""%>
+  </p>
 </div>
 
 <%- include('components/footer') %>

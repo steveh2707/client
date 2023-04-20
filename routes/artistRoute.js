@@ -10,12 +10,14 @@ router.get('/artists/:artistid', (req, res) => {
 
   axios.get(ep).then((response) => {
     let responseData = response.data;
-
     if (!responseData.success) return res.status(404).render('pageNotFound')
 
     let data = responseData.data
     res.render('singleArtist', { data })
 
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

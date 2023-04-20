@@ -10,12 +10,16 @@ router.get('/search', (req, res) => {
   axios.get(ep).then((response) => {
     let responseData = response.data;
 
-    if (responseData.success) {
-      let data = responseData.data
-      let numResults = responseData.numResults
+    if (!responseData.success) return res.redirect('/error')
 
-      res.render('searchResults', { data, numResults, value })
-    }
+    let data = responseData.data
+    let numResults = responseData.numResults
+
+    res.render('searchResults', { data, numResults, value })
+
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

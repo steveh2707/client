@@ -20,6 +20,9 @@ router.get('/collections/:collectionid', (req, res) => {
     } else {
       res.redirect('/pageNotFound')
     }
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

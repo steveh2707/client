@@ -8,10 +8,14 @@ router.get('/artists', (req, res) => {
 
   axios.get(ep).then((response) => {
     let responseData = response.data;
-    if (responseData.success) {
-      let data = responseData.data
-      res.render('allArtists', { data })
-    }
+    if (!responseData.success) return res.status(404).render('pageNotFound')
+
+    let data = responseData.data
+    res.render('allArtists', { data })
+
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

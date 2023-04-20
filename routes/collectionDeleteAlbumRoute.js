@@ -18,8 +18,9 @@ router.post('/collectionDeleteAlbum', (req, res) => {
 
     res.redirect(`/collections/${collectionID}`)
 
-  }).catch((error) => {
-    console.log(error)
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 
 })

@@ -13,11 +13,14 @@ router.get('/albums', (req, res) => {
 
   axios.get(ep).then((response) => {
     let responseData = response.data;
+    if (!responseData.success) return res.status(404).render('pageNotFound')
 
-    if (responseData.success) {
-      let data = responseData.data
-      res.render('allAlbums', { data, albumAdded })
-    }
+    let data = responseData.data
+    res.render('allAlbums', { data, albumAdded })
+
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
 })
 

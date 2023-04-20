@@ -16,8 +16,10 @@ router.post('/deletecollection/:collectionid', (req, res) => {
 
   axios.post(ep, querystring.stringify({ userID })).then(response => {
     res.redirect(`/`)
+  }).catch(error => {
+    let message = error.message
+    res.render('error', { message })
   })
-
 })
 
 
