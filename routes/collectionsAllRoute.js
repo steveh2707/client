@@ -28,7 +28,6 @@ router.get('/', (req, res) => {
 
   let ep = `http://localhost:4000/collections?page=${page}&sort=${sortQuery}`
 
-
   axios.get(ep).then((response) => {
     let responseData = response.data;
 

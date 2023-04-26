@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
 
   if (sessionObj.sess_valid) return res.redirect('/')
 
-  res.render('login')
+  res.render('login', { backURL })
 
 })
 
@@ -56,7 +56,7 @@ router.get('/register', (req, res) => {
   let sessionObj = req.session;
   if (sessionObj.sess_valid) return res.redirect('/')
 
-  res.render('register')
+  res.render('register', { backURL: sessionObj.backURL })
 })
 
 router.post('/register', (req, res) => {

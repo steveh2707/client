@@ -3,6 +3,7 @@ const path = require('path');
 const app = express()
 const cookieParser = require('cookie-parser');
 const sessions = require('express-session');
+require('dotenv').config()
 
 const loginRegisterLogoutRoute = require('./routes/loginRegisterLogoutRoute')
 
@@ -29,8 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const hour = 1000 * 60 * 60 * 1;
 
+app.use(cookieParser());
+
 app.use(sessions({
-  secret: "letmein12356",
+  secret: process.env.SESSION_SECRET,
   saveUninitialized: true,
   cookie: { maxAge: hour },
   resave: false
@@ -39,7 +42,7 @@ app.use(sessions({
 app.use((req, res, next) => {
   res.locals = {
     user: req.session.sess_user,
-    sess_valid: req.session.sess_valid
+    sess_valid: req.session.sess_valid,
   };
   next();
 });

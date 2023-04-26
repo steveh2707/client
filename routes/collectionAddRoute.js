@@ -15,6 +15,7 @@ router.get('/addcollection', (req, res) => {
       if (!responseData.success) return res.redirect('/error')
 
       let data = responseData.data
+
       res.render('addCollection', { data })
 
     })
@@ -28,8 +29,6 @@ router.post('/addcollection', (req, res) => {
   let collectionName = req.body.collectionname;
   let albumIDArray = req.body.album_id;
   let apiKey = "66spev4efktkz3"
-
-  console.log(albumIDArray)
 
   if (!sessionObj.sess_valid) return res.redirect('/login')
   if (albumIDArray === undefined) return res.redirect('/addcollection')

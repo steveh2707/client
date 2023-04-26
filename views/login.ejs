@@ -47,7 +47,7 @@
             <% } %>
 
             <button class="btn btn-primary" type="submit">Login</button>
-            <a href="/" class="btn btn-secondary">Back</a>
+            <a href="<%= backURL || "/" %>" class="btn btn-secondary">Back</a>
           </form>
 
         </div>
@@ -65,7 +65,7 @@
 
 <script>
 
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  // Disabling form submissions if there are invalid fields
   (() => {
     'use strict'
 
